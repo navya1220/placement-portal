@@ -1,5 +1,7 @@
 import React, { useState, useMemo } from 'react';
-import { Brain, Dumbbell, Lightbulb, ExternalLink, GraduationCap } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { fadeIn, pulse, rotate } from './animations';
+import { Brain, Dumbbell, Lightbulb, ExternalLink, GraduationCap, Code, ChevronDown } from 'lucide-react';
 import clsx from 'clsx';
 
 // Types
@@ -200,29 +202,31 @@ const problems: Problem[] = [
   ];
   
 
-// DifficultySelector Component
+
 function DifficultySelector({ selectedDifficulty, onSelect }: { selectedDifficulty: Difficulty; onSelect: (difficulty: Difficulty) => void }) {
   const difficulties = [
-    { value: 'easy', label: 'Easy', icon: <Lightbulb size={24} />, color: 'bg-green-100 hover:bg-green-200 text-green-700' },
-    { value: 'medium', label: 'Medium', icon: <Brain size={24} />, color: 'bg-yellow-100 hover:bg-yellow-200 text-yellow-700' },
-    { value: 'hard', label: 'Hard', icon: <Dumbbell size={24} />, color: 'bg-red-100 hover:bg-red-200 text-red-700' },
+    { value: 'easy', label: 'Easy', icon: <Lightbulb size={24} />, color: 'bg-green-400 hover:bg-green-500 text-white' },
+    { value: 'medium', label: 'Medium', icon: <Brain size={24} />, color: 'bg-yellow-400 hover:bg-yellow-500 text-white' },
+    { value: 'hard', label: 'Hard', icon: <Dumbbell size={24} />, color: 'bg-red-400 hover:bg-red-500 text-white' },
   ];
 
   return (
-    <div className="flex gap-4 justify-center mb-8">
+    <div className="flex flex-wrap gap-4 justify-center mb-8">
       {difficulties.map(({ value, label, icon, color }) => (
-        <button
+        <motion.button
           key={value}
           onClick={() => onSelect(value)}
           className={clsx(
             'flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-colors',
             color,
-            selectedDifficulty === value && 'ring-2 ring-offset-2 ring-current'
+            selectedDifficulty === value && 'ring-4 ring-offset-2 ring-current'
           )}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
         >
           {icon}
           {label}
-        </button>
+        </motion.button>
       ))}
     </div>
   );
@@ -231,57 +235,136 @@ function DifficultySelector({ selectedDifficulty, onSelect }: { selectedDifficul
 // ProblemList Component
 function ProblemList({ problems }: { problems: Problem[] }) {
   return (
-    <div className="grid gap-4">
+    <motion.div 
+      className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
+      initial="hidden"
+      animate="visible"
+      variants={{
+        hidden: { opacity: 0 },
+        visible: {
+          opacity: 1,
+          transition: {
+            staggerChildren: 0.1
+          }
+        }
+      }}
+    >
       {problems.map((problem) => (
-        <div
+        <motion.div
           key={problem.id}
-          className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 hover:border-gray-300 transition-colors"
+          className="bg-white p-6 rounded-lg shadow-lg border border-gray-200 hover:border-gray-300 transition-all transform hover:-translate-y-1 hover:shadow-xl"
+          variants={{
+            hidden: { opacity: 0, y: 20 },
+            visible: { opacity: 1, y: 0 }
+          }}
         >
-          <div className="flex items-start justify-between">
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900">{problem.title}</h3>
-              <span className="inline-block mt-1 px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-700">
+          <div className="flex flex-col h-full">
+            <div className="flex-grow">
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">{problem.title}</h3>
+              <span className="inline-block mb-4 px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-700">
                 {problem.category}
               </span>
             </div>
-            <a
+            <motion.a
               href={problem.leetcode_link}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1 px-4 py-2 rounded-lg bg-indigo-100 text-indigo-700 hover:bg-indigo-200 transition-colors"
+              className="flex items-center justify-center gap-1 px-4 py-2 rounded-lg bg-indigo-500 text-white hover:bg-indigo-600 transition-colors"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
               Solve <ExternalLink size={16} />
-            </a>
+            </motion.a>
           </div>
-        </div>
+        </motion.div>
       ))}
-    </div>
+    </motion.div>
   );
 }
 
 // App Component
 function Dsa() {
   const [difficulty, setDifficulty] = useState<Difficulty>('easy');
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const filteredProblems = useMemo(() => {
     return problems.filter((problem) => problem.difficulty === difficulty);
   }, [difficulty]);
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="bg-white border-b border-gray-200">
-        <div className="max-w-5xl mx-auto px-4 py-6">
-          <div className="flex items-center gap-2">
-            <GraduationCap size={32} className="text-indigo-600" />
-            <h1 className="text-2xl font-bold text-gray-900">DSA Practice Platform</h1>
+    <div className="min-h-screen bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100">
+      <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between py-4">
+            <div className="flex items-center gap-2">
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+              >
+                <GraduationCap size={32} className="text-indigo-600" />
+              </motion.div>
+              <h1 className="text-2xl font-bold text-gray-900">DSA Practice Platform</h1>
+            </div>
+            <motion.button
+              className="sm:hidden"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              <Code size={24} className="text-indigo-600" />
+            </motion.button>
           </div>
         </div>
       </header>
 
-      <main className="max-w-5xl mx-auto px-4 py-8">
-        <DifficultySelector selectedDifficulty={difficulty} onSelect={setDifficulty} />
-        <ProblemList problems={filteredProblems} />
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <DifficultySelector selectedDifficulty={difficulty} onSelect={setDifficulty} />
+        </motion.div>
+        
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
+          <ProblemList problems={filteredProblems} />
+        </motion.div>
       </main>
+
+      {/* Mobile menu */}
+      <motion.div
+        className={`fixed inset-0 bg-gray-800 bg-opacity-75 z-20 ${isMenuOpen ? 'block' : 'hidden'} sm:hidden`}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: isMenuOpen ? 1 : 0 }}
+        transition={{ duration: 0.3 }}
+      >
+        <div className="flex items-center justify-center h-full">
+          <motion.div
+            className="bg-white rounded-lg p-6 w-11/12 max-w-sm"
+            initial={{ scale: 0.9, y: 20 }}
+            animate={{ scale: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <h2 className="text-xl font-bold mb-4">Select Difficulty</h2>
+            <DifficultySelector selectedDifficulty={difficulty} onSelect={(newDifficulty) => {
+              setDifficulty(newDifficulty);
+              setIsMenuOpen(false);
+            }} />
+            <motion.button
+              className="mt-4 w-full py-2 bg-indigo-500 text-white rounded-lg"
+              onClick={() => setIsMenuOpen(false)}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Close
+            </motion.button>
+          </motion.div>
+        </div>
+      </motion.div>
     </div>
   );
 }

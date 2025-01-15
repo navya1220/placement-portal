@@ -338,7 +338,7 @@ export const companies: Company[] = [
 const commonSkills = [
   'JavaScript', 'TypeScript', 'React', 'Node.js', 'Python',
   'Java', 'C++', 'AWS', 'Docker', 'Kubernetes', 'SQL',
-  'Git', 'REST API', 'GraphQL', 'HTML', 'CSS'
+  'Git', 'REST API', 'GraphQL', 'HTML', 'CSS' , 'AI' , 'ML' , 'C' , 'DBMS' 
 ];
 
 function calculateMatchScore(userSkills, company) {

@@ -1,0 +1,43 @@
+/* Background animations */
+body {
+    animation: gradientBackground 15s infinite alternate;
+    background: linear-gradient(to bottom, #dfe9f3, #ffffff);
+  }
+  
+  @keyframes gradientBackground {
+    0% {
+      background: #f7fbff;
+    }
+    50% {
+      background: #dfe9f3;
+    }
+    100% {
+      background: #f7fbff;
+    }
+  }
+  
+  /* Fade-in animation */
+  .animate-fade-in {
+    animation: fadeIn 1.5s ease-in;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  /* Responsive enhancements */
+  @media (max-width: 640px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  
+    .text-center {
+      padding: 0 1rem;
+    }
+  }
+  

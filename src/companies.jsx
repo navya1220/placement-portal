@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { motion, AnimatePresence } from 'framer-motion';
 
 const Cmp = () => {
   const companies = [
@@ -51,172 +52,154 @@ const Cmp = () => {
 ];
 
 
-  const [searchTerm, setSearchTerm] = useState("");
+const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedCompany, setSelectedCompany] = useState(null);
+  const [filteredCompanies, setFilteredCompanies] = useState(companies);
 
-  const filteredCompanies = companies.filter((company) => {
-    const matchesCategory =
-      selectedCategory === "All" || company.category === selectedCategory;
-    const matchesSearch = company.name
-      .toLowerCase()
-      .includes(searchTerm.toLowerCase());
-    return matchesCategory && matchesSearch;
-  });
-
-  const styles = {
-    header: {
-      textAlign: "center",
-      marginBottom: "20px",
-    },
-    title: {
-      fontSize: "2.5rem",
-      fontWeight: "bold",
-      color: "#007bff",
-    },
-    card: {
-      transition: "all 0.3s ease-in-out",
-    },
-    cardHover: {
-      transform: "scale(1.03)",
-    },
-    searchBar: {
-      marginBottom: "20px",
-    },
-    button: {
-      margin: "5px",
-    },
-    modalBackdrop: {
-      display: "block",
-      backgroundColor: "rgba(0, 0, 0, 0.5)",
-    },
-  };
+  useEffect(() => {
+    const filtered = companies.filter((company) => {
+      const matchesCategory =
+        selectedCategory === "All" || company.category === selectedCategory;
+      const matchesSearch = company.name
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase());
+      return matchesCategory && matchesSearch;
+    });
+    setFilteredCompanies(filtered);
+  }, [searchTerm, selectedCategory]);
 
   return (
-    <div className="container mt-4">
+    <div className="container mx-auto px-4 py-8">
       {/* Header */}
-      <header style={styles.header}>
-        <h1 style={styles.title}>CareerConnect</h1>
-        <p className="text-muted">Explore Top Companies</p>
-      </header>
+      <motion.header 
+        className="text-center mb-8"
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <h1 className="text-4xl font-bold text-blue-600 mb-2">CampusConnect</h1>
+        <p className="text-xl text-gray-600">Explore Top Companies</p>
+      </motion.header>
 
       {/* Search Bar */}
-      <div style={styles.searchBar}>
-        <div className="input-group">
-          <input
-            type="text"
-            placeholder="Search company..."
-            className="form-control"
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-        </div>
-      </div>
+      <motion.div 
+        className="mb-6"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.2, duration: 0.5 }}
+      >
+        <input
+          type="text"
+          placeholder="Search company..."
+          className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+      </motion.div>
 
       {/* Category Filter */}
-      <div className="text-center mb-4">
+      <motion.div 
+        className="flex flex-wrap justify-center mb-6 gap-2"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.4, duration: 0.5 }}
+      >
         {["All", "MNC", "Middle", "Startup"].map((category) => (
           <button
             key={category}
-            className={`btn btn-sm ${
+            className={`px-4 py-2 rounded-md ${
               selectedCategory === category
-                ? "btn-primary"
-                : "btn-outline-primary"
+                ? "bg-blue-500 text-white"
+                : "bg-gray-200 text-gray-700 hover:bg-gray-300"
             }`}
             onClick={() => setSelectedCategory(category)}
-            style={styles.button}
           >
             {category}
           </button>
         ))}
-      </div>
+      </motion.div>
 
       {/* Company List */}
-      <div className="row">
-        {filteredCompanies.map((company) => (
-          <div className="col-md-4 mb-4" key={company.id}>
-            <div
-              className="card shadow-sm"
-              style={styles.card}
-              onMouseOver={(e) =>
-                (e.currentTarget.style.transform = "scale(1.03)")
-              }
-              onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1)")}
+      <motion.div 
+        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.6, duration: 0.5 }}
+      >
+        <AnimatePresence>
+          {filteredCompanies.map((company) => (
+            <motion.div
+              key={company.id}
+              layout
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              transition={{ duration: 0.3 }}
+              className="bg-white rounded-lg shadow-md overflow-hidden"
             >
               <img
                 src={company.logo}
-                className="card-img-top p-3"
                 alt={company.name}
-                style={{ height: "120px", objectFit: "contain" }}
+                className="w-full h-32 object-contain p-4"
               />
-              <div className="card-body text-center">
-                <h5 className="card-title">{company.name}</h5>
+              <div className="p-4 text-center">
+                <h3 className="text-lg font-semibold mb-2">{company.name}</h3>
                 <button
-                  className="btn btn-outline-primary"
+                  className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors"
                   onClick={() => setSelectedCompany(company)}
                 >
                   View Details
                 </button>
               </div>
-            </div>
-          </div>
-        ))}
-      </div>
+            </motion.div>
+          ))}
+        </AnimatePresence>
+      </motion.div>
 
       {/* No Companies Found */}
       {filteredCompanies.length === 0 && (
-        <p className="text-center text-muted">No companies found.</p>
+        <p className="text-center text-gray-500 mt-8">No companies found.</p>
       )}
 
       {/* Modal for Company Details */}
-      {selectedCompany && (
-        <div
-          className="modal fade show"
-          style={styles.modalBackdrop}
-          onClick={() => setSelectedCompany(null)}
-        >
-          <div
-            className="modal-dialog modal-dialog-centered"
-            onClick={(e) => e.stopPropagation()}
+      <AnimatePresence>
+        {selectedCompany && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4"
+            onClick={() => setSelectedCompany(null)}
           >
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title">{selectedCompany.name} Details</h5>
-                <button
-                  className="btn-close"
-                  onClick={() => setSelectedCompany(null)}
-                ></button>
-              </div>
-              <div className="modal-body">
-                <p>
-                  <strong>Recruitment Process:</strong> {selectedCompany.process}
-                </p>
-                <p>
-                  <strong>Requirements:</strong> {selectedCompany.requirements}
-                </p>
-                <p>
-                  <strong>Learn More:</strong>{" "}
-                  <a
-                    href={selectedCompany.recruitmentLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-primary"
-                  >
-                    View Recruitment Details
-                  </a>
-                </p>
-              </div>
-              <div className="modal-footer">
-                <button
-                  className="btn btn-secondary"
-                  onClick={() => setSelectedCompany(null)}
-                >
-                  Close
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ type: "spring", damping: 15 }}
+              className="bg-white rounded-lg p-6 max-w-md w-full"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <h2 className="text-2xl font-bold mb-4">{selectedCompany.name}</h2>
+              <p className="mb-2"><strong>Recruitment Process:</strong> {selectedCompany.process}</p>
+              <p className="mb-4"><strong>Requirements:</strong> {selectedCompany.requirements}</p>
+              <a
+                href={selectedCompany.recruitmentLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-500 hover:underline"
+              >
+                Learn More
+              </a>
+              <button
+                className="mt-6 px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors"
+                onClick={() => setSelectedCompany(null)}
+              >
+                Close
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

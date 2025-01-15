@@ -1,162 +1,80 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom"; 
 
 const CompanyPapers = () => {
-  const [papers] = useState([
-    {
-      company: "Google",
-      year: 2022,
-      link: "/papers/google-2022.pdf",
-      logo: "https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg",
-    },
-    {
-      company: "Microsoft",
-      year: 2021,
-      link: "/papers/microsoft-2021.pdf",
-      logo: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg",
-    },
-    {
-      company: "Amazon",
-      year: 2023,
-      link: "/papers/amazon-2023.pdf",
-      logo: "https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg",
-    },
-    {
-      company: "Meta",
-      year: 2022,
-      link: "/papers/meta-2022.pdf",
-      logo: "https://upload.wikimedia.org/wikipedia/commons/6/6e/Meta_Platforms_Inc._logo.svg",
-    },
-    {
-      company: "Apple",
-      year: 2021,
-      link: "/papers/apple-2021.pdf",
-      logo: "https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg",
-    },
-    {
-      company: "Netflix",
-      year: 2023,
-      link: "/papers/netflix-2023.pdf",
-      logo: "https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg",
-    },
-    {
-      company: "Tesla",
-      year: 2022,
-      link: "/papers/tesla-2022.pdf",
-      logo: "https://upload.wikimedia.org/wikipedia/commons/b/bd/Tesla_Motors.svg",
-    },
-    {
-      company: "Adobe",
-      year: 2021,
-      link: "/papers/adobe-2021.pdf",
-      logo: "https://upload.wikimedia.org/wikipedia/commons/d/d3/Adobe_Corporate_Logo.svg",
-    },
-    {
-      company: "Salesforce",
-      year: 2023,
-      link: "/papers/salesforce-2023.pdf",
-      logo: "https://upload.wikimedia.org/wikipedia/commons/3/3e/Salesforce.com_logo.svg",
-    },
-    {
-      company: "Oracle",
-      year: 2022,
-      link: "/papers/oracle-2022.pdf",
-      logo: "https://upload.wikimedia.org/wikipedia/commons/5/50/Oracle_logo.svg",
-    },
-    {
-      company: "IBM",
-      year: 2021,
-      link: "/papers/ibm-2021.pdf",
-      logo: "https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg",
-    },
-    {
-      company: "Intel",
-      year: 2023,
-      link: "/papers/intel-2023.pdf",
-      logo: "https://upload.wikimedia.org/wikipedia/commons/c/c9/Intel_logo_%282020%29.svg",
-    },
-    {
-      company: "Cisco",
-      year: 2022,
-      link: "/papers/cisco-2022.pdf",
-      logo: "https://upload.wikimedia.org/wikipedia/commons/4/4a/Cisco_logo_blue_2016.svg",
-    },
-    {
-      company: "Qualcomm",
-      year: 2021,
-      link: "/papers/qualcomm-2021.pdf",
-      logo: "https://upload.wikimedia.org/wikipedia/commons/6/6a/Qualcomm_logo.svg",
-    },
-    {
-      company: "Twitter",
-      year: 2023,
-      link: "/papers/twitter-2023.pdf",
-      logo: "https://upload.wikimedia.org/wikipedia/en/6/60/Twitter_Logo_as_of_2021.svg",
-    },
-    {
-      company: "Spotify",
-      year: 2022,
-      link: "/papers/spotify-2022.pdf",
-      logo: "https://upload.wikimedia.org/wikipedia/commons/2/26/Spotify_logo_with_text.svg",
-    },
-    {
-      company: "Uber",
-      year: 2021,
-      link: "/papers/uber-2021.pdf",
-      logo: "https://upload.wikimedia.org/wikipedia/commons/c/cc/Uber_logo_2018.png",
-    },
-    {
-      company: "Airbnb",
-      year: 2023,
-      link: "/papers/airbnb-2023.pdf",
-      logo: "https://upload.wikimedia.org/wikipedia/commons/6/69/Airbnb_Logo_Bélo.svg",
-    },
-    {
-      company: "Shopify",
-      year: 2022,
-      link: "/papers/shopify-2022.pdf",
-      logo: "https://upload.wikimedia.org/wikipedia/commons/5/56/Shopify_logo_2018.svg",
-    },
-    {
-      company: "LinkedIn",
-      year: 2021,
-      link: "/papers/linkedin-2021.pdf",
-      logo: "https://upload.wikimedia.org/wikipedia/commons/8/81/LinkedIn_icon.svg",
-    },
-  ]);
+  const [papers, setPapers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate(); 
+
+  useEffect(() => {
+    const fetchPapers = async () => {
+      try {
+        const response = await axios.get("http://localhost:3000/api/paper");
+        setPapers(response.data); 
+      } catch (err) {
+        console.error(err);
+        setError("Failed to fetch papers.");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchPapers();
+  }, []);
+
+  const handleNavigate = () => {
+    navigate("/");  
+  };
 
   return (
     <div>
       <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+        body {
+          font-family: 'Poppins', sans-serif;
+          margin: 0;
+          background-color: #f9f9f9;
+          color: #333;
+        }
         .container {
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
           gap: 20px;
           padding: 20px;
-          max-width: 1200px;
+          width: 40%;
           margin: 0 auto;
         }
         .card {
-          background-color: #ffffff;
-          border: 1px solid #e0e0e0;
-          border-radius: 10px;
+          position: relative;
+          background: linear-gradient(145deg, #ffffff, #f0f0f0);
+          border-radius: 15px;
           padding: 20px;
           text-align: center;
           box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
           transition: transform 0.3s ease, box-shadow 0.3s ease;
+          overflow: hidden;
         }
         .card:hover {
-          transform: translateY(-5px);
-          box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+          transform: translateY(-10px);
+          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+          background: linear-gradient(145deg, #e0e0e0, #ffffff);
         }
         .company-logo {
-          width: 60px;
-          height: 60px;
+          width: 70px;
+          height: 70px;
+          border-radius: 50%;
           margin-bottom: 15px;
+          transition: transform 0.3s ease;
+        }
+        .card:hover .company-logo {
+          transform: scale(1.1);
         }
         .company-name {
           font-size: 1.5rem;
-          color: #333333;
+          color: #007bff;
           margin-bottom: 10px;
+          font-weight: 600;
         }
         .year {
           font-size: 1rem;
@@ -171,30 +89,95 @@ const CompanyPapers = () => {
           text-decoration: none;
           border-radius: 5px;
           font-size: 1rem;
-          transition: background-color 0.3s ease;
+          transition: background-color 0.3s ease, transform 0.3s ease;
         }
         .download-button:hover {
           background-color: #0056b3;
+          transform: scale(1.05);
+        }
+        .ribbon {
+          position: absolute;
+          top: -10px;
+          left: -10px;
+          background: #007bff;
+          color: white;
+          padding: 5px 15px;
+          font-size: 0.9rem;
+          font-weight: bold;
+          transform: rotate(-45deg);
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .loading,
+        .error {
+          text-align: center;
+          font-size: 1.2rem;
+          margin-top: 50px;
+        }
+        .error {
+          color: red;
+        }
+        @media (max-width: 768px) {
+          .container {
+            padding: 10px;
+          }
+          .card {
+            padding: 15px;
+          }
+          .company-name {
+            font-size: 1.2rem;
+          }
+          .download-button {
+            font-size: 0.9rem;
+            padding: 8px 14px;
+          }
         }
       `}</style>
-      <div className="container">
-        {papers.map((paper, index) => (
-          <div key={index} className="card">
-            <img
-              src={paper.logo}
-              alt={`${paper.company} logo`}
-              className="company-logo"
-            />
-            <h2 className="company-name">{paper.company}</h2>
-            <p className="year">Year: {paper.year}</p>
-            <a href={paper.link} download className="download-button">
-              Download
-            </a>
-          </div>
-        ))}
+
+      {loading ? (
+        <div className="loading">Loading papers...</div>
+      ) : error ? (
+        <div className="error">{error}</div>
+      ) : (
+        <div className="container">
+          {papers.map((paper, index) => (
+            <div key={index} className="card">
+              <div className="ribbon">{paper.company}</div>
+              <img
+                src={paper.logo}
+                alt={`${paper.company} logo`}
+                className="company-logo"
+              />
+              <h2 className="company-name">{paper.company}</h2>
+              <p className="year">Year: {paper.year}</p>
+              <a
+                href={paper.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="download-button"
+              >
+                View Paper
+              </a>
+            </div>
+          ))}
+        </div>
+      )}
+
+      <div style={{ textAlign: "center", marginTop: "20px" }}>
+        <button onClick={handleNavigate} style={buttonStyle}>Go to App Page</button>
       </div>
     </div>
   );
+};
+
+const buttonStyle = {
+  padding: "10px 20px",
+  fontSize: "1.2rem",
+  backgroundColor: "#007bff",
+  color: "white",
+  border: "none",
+  borderRadius: "5px",
+  cursor: "pointer",
+  transition: "background-color 0.3s ease, transform 0.3s ease",
 };
 
 export default CompanyPapers;

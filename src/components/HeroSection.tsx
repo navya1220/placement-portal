@@ -18,7 +18,7 @@ const HeroSection = () => {
       {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 text-center">
         <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white">
-          Welcome to CareerConnect
+          Welcome to CampusConnect
         </h1>
         <p className="text-xl mb-8 max-w-2xl mx-auto text-gray-200">
           Your gateway to successful placements. Connect with top companies, 

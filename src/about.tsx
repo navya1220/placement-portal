@@ -3,7 +3,7 @@ import { Github, Linkedin, Mail, Users } from 'lucide-react';
 
 const teamMembers = [
     {
-      name: "Sarah Johnson",
+      name: "Mudunuri Ashritha",
       role: "Team Lead & Full Stack Developer",
       bio: "Leading the technical architecture and development of the placement portal.",
       social: {
@@ -13,7 +13,7 @@ const teamMembers = [
       }
     },
     {
-      name: "Emily Chen",
+      name: "Angarapu Eswari Akshaya",
       role: "UI/UX Designer",
       bio: "Creating intuitive and beautiful user experiences for our platform.",
       social: {
@@ -23,7 +23,7 @@ const teamMembers = [
       }
     },
     {
-      name: "Priya Patel",
+      name: " Pidakaala Susmitha",
       role: "Backend Developer",
       bio: "Implementing robust backend solutions and API integrations.",
       social: {
@@ -33,7 +33,7 @@ const teamMembers = [
       }
     },
     {
-      name: "Lisa Anderson",
+      name: "Telagarapu Chinamayi Sai",
       role: "Data Scientist",
       bio: "Developing AI algorithms for predictive analytics and assessments.",
       social: {
@@ -43,7 +43,7 @@ const teamMembers = [
       }
     },
     {
-      name: "Maya Rodriguez",
+      name: "Donka Deepthika",
       role: "Quality Assurance",
       bio: "Ensuring the highest quality standards across all features.",
       social: {

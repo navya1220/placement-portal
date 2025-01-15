@@ -1,24 +1,35 @@
 import React, { useState } from 'react';
-import { GraduationCap, User, LogOut, Menu } from 'lucide-react';
+import { LogOut, Menu } from 'lucide-react';
 import MobileNav from './MobileNav';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    navigate("/roles"); 
+  };
 
   return (
     <>
       <nav className="bg-white shadow-md px-4 py-3 fixed w-full top-0 z-40">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center space-x-2">
-            <GraduationCap className="h-8 w-8 text-blue-600" />
-            <span className="text-xl font-bold text-gray-800">CareerConnect</span>
+            <img src="https://www.static-contents.youth4work.com/university/Documents/Colleges/CollegeImages/7365058a-1c03-4bb0-8934-88aea2ae1e87.png" className="h-8 w-8 text-blue-600" />
+            <span className="text-xl font-bold text-gray-800">Vignan's Institute Of Engineering For Women</span>
           </div>
           
           <div className="hidden md:flex items-center space-x-6">
-          <Link to="/about" className="text-gray-600 hover:text-blue-600">About Us</Link>
-            
-            
+            <Link to="/about" className="text-gray-600 hover:text-blue-600">About Us</Link>
+            <button
+              onClick={handleLogout}
+              className="flex items-center px-4 py-2 text-red-600 hover:bg-red-50 rounded-lg"
+            >
+              <LogOut className="w-4 h-4 mr-2" />
+              Logout
+            </button>
           </div>
 
           <button 
@@ -26,8 +37,7 @@ const Navbar = () => {
             onClick={() => setIsMobileMenuOpen(true)}
           >
             <Menu className="h-6 w-6 text-gray-600" />
-          </button>
-        </div>
+          </button> </div>
       </nav>
 
       <MobileNav 

@@ -10,13 +10,13 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold mb-4">Additional Resources</h3>
             <div className="space-y-2">
-              <a href="https://www.youtube.com/results?search_query=interview++playlist" className="flex items-center text-gray-300 hover:text-white">
+              <a href="https://www.youtube.com/results?search_query=All+companies+interview+experiences" className="flex items-center text-gray-300 hover:text-white">
                 <PlayCircle className="h-4 w-4 mr-2" />
                 Interview Videos
               </a>
               <Link to="/prediction" className="flex items-center text-gray-300 hover:text-white">
   <TrendingUp className="h-4 w-4 mr-2" />
-  Career Predictions
+  Future Predictions
 </Link>
 
             </div>

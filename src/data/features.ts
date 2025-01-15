@@ -22,7 +22,7 @@ export const features = [
   },
   {
     icon: MessageSquare,
-    title: 'Smart Chatbot',
+    title: 'Chatbot',
     description: '24/7 assistance for all your placement-related queries',
     buttonText: 'Start Chat',
     link: '/chatbot'

@@ -1,17 +1,15 @@
-// Import necessary modules
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { GoogleGenerativeAI } from "@google/generative-ai";
-
-
-
 
 const genAI = new GoogleGenerativeAI("AIzaSyCHhYU7FOp9HyzaKwTJL72qJdIsARyWaTk");
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-const chatbot = () => {
+const Chatbot = () => {
   const [prompt, setPrompt] = useState("");
   const [response, setResponse] = useState("");
-  const [isLoading, setIsLoading] = useState(false); // State to track loading
+  const [isLoading, setIsLoading] = useState(false); 
+  const navigate = useNavigate(); 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,7 +18,7 @@ const chatbot = () => {
       return;
     }
 
-    setIsLoading(true); // Set loading to true
+    setIsLoading(true); 
     try {
       const result = await model.generateContent(prompt);
       if (result && result.response) {
@@ -77,6 +75,22 @@ const chatbot = () => {
         >
           Placement AI Chatbot
         </header>
+        <button
+          onClick={() => navigate("/")}
+          style={{
+            margin: "10px",
+            padding: "10px",
+            backgroundColor: "#4e54c8",
+            color: "white",
+            fontSize: "1rem",
+            border: "none",
+            borderRadius: "8px",
+            cursor: "pointer",
+            alignSelf: "flex-start",
+          }}
+        >
+          Go to Home
+        </button>
         <div
           style={{
             flexGrow: 1,
@@ -154,5 +168,4 @@ const chatbot = () => {
   );
 };
 
-
-export default chatbot;
+export default Chatbot;

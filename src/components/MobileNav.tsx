@@ -13,7 +13,7 @@ const MobileNav = ({ isOpen, onClose }: MobileNavProps) => {
   const features = [
     { icon: Building, label: 'Company Recruitment' },
     { icon: Brain, label: 'AI Resume Screening' },
-    { icon: MessageSquare, label: 'Smart Chatbot' },
+    { icon: MessageSquare, label: 'Chatbot' },
     { icon: FileCheck, label: 'Mock Tests' },
     { icon: Briefcase, label: 'Job Portal' },
     { icon: BookOpen, label: 'Previous Papers' },
