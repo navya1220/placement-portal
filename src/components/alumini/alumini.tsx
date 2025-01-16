@@ -30,7 +30,7 @@ const Alumni = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:3000/api/alumini', {
+      const response = await fetch('https://placement-portal-backend-e74c.onrender.com/api/alumini', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),

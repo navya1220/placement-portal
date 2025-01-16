@@ -59,7 +59,7 @@ export default function Ft() {
   useEffect(() => {
     const fetchAlumniStories = async () => {
       try {
-        const response = await fetch('http://localhost:3000/api/alumini');
+        const response = await fetch('https://placement-portal-backend-e74c.onrender.com/api/alumini');
         if (!response.ok) throw new Error('Failed to fetch alumni data');
         const data = await response.json();
         setAlumniStories(data);

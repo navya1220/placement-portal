@@ -55,43 +55,44 @@ const AuthForm: React.FC<AuthFormProps> = ({
       let payload = {};
 
       if (isLogin) {
-        console.log(role);
         if (role === "student") {
-          endpoint = "http://localhost:3000/api/studentLogin";
+          endpoint =
+            "https://placement-portal-backend-e74c.onrender.com/api/studentLogin";
           payload = { email, rollNo };
         } else if (role === "alumini") {
-          endpoint = "http://localhost:3000/api/aluminiLogin";
+          endpoint =
+            "https://placement-portal-backend-e74c.onrender.com/api/aluminiLogin";
           payload = { email, rollNo };
         } else if (role === "employee") {
-          endpoint = "http://localhost:3000/api/login";
+          endpoint =
+            "https://placement-portal-backend-e74c.onrender.com/api/login";
           payload = { email, password };
-        }
-        else if (role === "admin") {
-          endpoint = "http://localhost:3000/api/adminLogin";
+        } else if (role === "admin") {
+          endpoint =
+            "https://placement-portal-backend-e74c.onrender.com/api/adminLogin";
           payload = { email, password };
         }
       } else {
-        console.log(role);
         if (role === "student") {
-          endpoint = "http://localhost:3000/api/studentRegister";
+          endpoint =
+            "https://placement-portal-backend-e74c.onrender.com/api/studentRegister";
           payload = { name, email, rollNo };
         } else if (role === "alumini") {
-          endpoint = "http://localhost:3000/api/aluminiRegister";
+          endpoint =
+            "https://placement-portal-backend-e74c.onrender.com/api/aluminiRegister";
           payload = { name, email, rollNo };
         } else if (role === "employee") {
-          endpoint = "http://localhost:3000/api/register";
+          endpoint =
+            "https://placement-portal-backend-e74c.onrender.com/api/register";
           payload = { name, email, password };
-        }
-        else if (role === "admin") {
-          endpoint = "http://localhost:3000/api/adminRegister";
+        } else if (role === "admin") {
+          endpoint =
+            "https://placement-portal-backend-e74c.onrender.com/api/adminRegister";
           payload = { name, email, password };
         }
       }
 
-
       const response = await axios.post(endpoint, payload);
-      console.log(response)
-
       if (isLogin) {
         const { token, ...user } = response.data;
         localStorage.setItem("token", token);
@@ -115,14 +116,19 @@ const AuthForm: React.FC<AuthFormProps> = ({
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.5 }}
     >
-      <button onClick={onBack} className="mb-6 flex items-center text-gray-600 hover:text-gray-900">
+      <button
+        onClick={onBack}
+        className="mb-6 flex items-center text-gray-600 hover:text-gray-900"
+      >
         <ArrowLeft className="h-4 w-4 mr-2" />
         Back to roles
       </button>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold">{isLogin ? "Welcome Back" : "Create Account"}</h2>
+          <h2 className="text-3xl font-bold">
+            {isLogin ? "Welcome Back" : "Create Account"}
+          </h2>
           <p className="text-gray-600 mt-2">
             {isLogin ? "Sign in to your account" : `Sign up as a ${role}`}
           </p>
@@ -130,7 +136,9 @@ const AuthForm: React.FC<AuthFormProps> = ({
 
         {!isLogin && (
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Full Name
+            </label>
             <input
               type="text"
               value={name}
@@ -142,7 +150,9 @@ const AuthForm: React.FC<AuthFormProps> = ({
         )}
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Email Address
+          </label>
           <input
             type="email"
             value={email}
@@ -152,9 +162,11 @@ const AuthForm: React.FC<AuthFormProps> = ({
           />
         </div>
 
-        {(role === "employee" || role === "admin" ) && (
+        {(role === "employee" || role === "admin") && (
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Password</label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Password
+            </label>
             <input
               type="password"
               value={password}
@@ -167,7 +179,9 @@ const AuthForm: React.FC<AuthFormProps> = ({
 
         {(role === "student" || role === "alumini") && (
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Roll Number</label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Roll Number
+            </label>
             <input
               type="text"
               value={rollNo}
@@ -201,6 +215,7 @@ const AuthForm: React.FC<AuthFormProps> = ({
     </motion.div>
   );
 };
+
 
 // Main App Component
 function Creditinal() {

@@ -11,7 +11,7 @@ const CompanyPapers = () => {
   useEffect(() => {
     const fetchPapers = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/api/paper");
+        const response = await axios.get("https://placement-portal-backend-e74c.onrender.com/api/paper");
         setPapers(response.data); 
       } catch (err) {
         console.error(err);

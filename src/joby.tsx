@@ -25,7 +25,7 @@ export const useJobs = () => {
 
   const fetchJobs = async () => {
     try {
-      const response = await fetch('http://localhost:3000/api/jobs');
+      const response = await fetch('https://placement-portal-backend-e74c.onrender.com/api/jobs');
       if (!response.ok) {
         throw new Error('Failed to fetch jobs');
       }

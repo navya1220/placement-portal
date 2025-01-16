@@ -33,7 +33,7 @@ const Admin = () => {
     };
 
     try {
-      const response = await axios.post("http://localhost:3000/api/jobs", formattedData);
+      const response = await axios.post("https://placement-portal-backend-e74c.onrender.com/api/jobs", formattedData);
       if (response.status === 201) {
         alert("Job added successfully!");
         setJobData({

@@ -21,7 +21,7 @@ const Employee = () => {
     setSuccessMessage("");
 
     try {
-      const response = await axios.post("http://localhost:3000/api/paper", {
+      const response = await axios.post("https://placement-portal-backend-e74c.onrender.com/api/paper", {
         company,
         year,
         link,
@@ -40,11 +40,11 @@ const Employee = () => {
   };
 
   const handleCardClick = () => {
-    setShowForm(true); // Toggle form visibility when the card is clicked
+    setShowForm(true); 
   };
 
   const handleBackClick = () => {
-    setShowForm(false); // Hide the form when the back arrow is clicked
+    setShowForm(false); 
   };
 
   return (
