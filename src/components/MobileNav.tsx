@@ -7,9 +7,10 @@ import {
 interface MobileNavProps {
   isOpen: boolean;
   onClose: () => void;
+  onLogout: () => void; // Receive the logout handler as a prop
 }
 
-const MobileNav = ({ isOpen, onClose }: MobileNavProps) => {
+const MobileNav = ({ isOpen, onClose, onLogout }: MobileNavProps) => {
   const features = [
     { icon: Building, label: 'Company Recruitment' },
     { icon: Brain, label: 'AI Resume Screening' },
@@ -38,14 +39,13 @@ const MobileNav = ({ isOpen, onClose }: MobileNavProps) => {
 
           <div className="overflow-y-auto flex-1 py-4">
             <div className="px-4 py-2">
-              <a href="#" className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100">
-                <User className="h-5 w-5 text-blue-600" />
-                <span>Profile</span>
-              </a>
-              <a href="#" className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100">
+              <button
+                onClick={onLogout} // Use the same logout handler here
+                className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100 w-full"
+              >
                 <LogOut className="h-5 w-5 text-blue-600" />
                 <span>Logout</span>
-              </a>
+              </button>
             </div>
 
             <div className="border-t my-2"></div>

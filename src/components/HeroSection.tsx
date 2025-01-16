@@ -12,24 +12,24 @@ const HeroSection = () => {
           backgroundSize: 'cover',
         }}
       >
-        <div className="absolute inset-0 bg-gradient-to-r from--900/90 to-indigo-900/90" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/90 to-indigo-900/90" />
       </div>
 
       {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 text-center">
-        <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white">
           Welcome to CampusConnect
         </h1>
-        <p className="text-xl mb-8 max-w-2xl mx-auto text-gray-200">
+        <p className="text-base sm:text-lg md:text-xl mb-8 max-w-md sm:max-w-lg md:max-w-2xl mx-auto text-gray-200">
           Your gateway to successful placements. Connect with top companies, 
           prepare effectively, and launch your career with confidence.
         </p>
-        <div className="flex gap-4 justify-center">
-          <button className="bg-white text-purple-900 px-8 py-3 rounded-full 
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <button className="bg-white text-purple-900 px-6 sm:px-8 py-2 sm:py-3 rounded-full 
             font-semibold hover:bg-gray-100 transition-colors">
             Explore Resources
           </button>
-          <button className="border-2 border-white text-white px-8 py-3 rounded-full 
+          <button className="border-2 border-white text-white px-6 sm:px-8 py-2 sm:py-3 rounded-full 
             font-semibold hover:bg-white/10 transition-colors">
             Learn More
           </button>
