@@ -2,7 +2,7 @@
 
 import { 
   Building, Brain, MessageSquare, FileCheck, Briefcase, 
-  BookOpen, Code, TrendingUp 
+  BookOpen, Code, TrendingUp ,  Users, Globe, GraduationCap 
 } from 'lucide-react';
 
 export const features = [
@@ -61,5 +61,33 @@ export const features = [
     description: 'Stay updated with industry trends and alumni experiences',
     buttonText: 'Explore Trends',
     link: '/future-trends'
+  },
+  {
+    icon: TrendingUp,
+    title: 'Future Prediction',
+    description: 'Skills-driven growth aligns talent with companies for mutual success.',
+    buttonText: 'Future Prediction',
+    link: '/prediction'
+  },
+  {
+    icon: Users,
+    title: 'Networking Hub',
+    description: 'Connect with peers, alumni, and industry professionals for guidance',
+    buttonText: 'Start Networking',
+    link: '/networking'
+  },
+  {
+    icon: Globe,
+    title: 'Global Opportunities',
+    description: 'Explore international job openings and career advancement options',
+    buttonText: 'Explore Opportunities',
+    link: '/global-opportunities'
+  },
+  {
+    icon: GraduationCap,
+    title: 'Skill Development',
+    description: 'Upskill with curated courses and certifications for career growth',
+    buttonText: 'Start Learning',
+    link: '/skill-development'
   }
 ];

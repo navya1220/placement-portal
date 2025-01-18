@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import axios from "axios";
-import { IoArrowBack } from "react-icons/io5"; // Back arrow icon
+import { IoArrowBack } from "react-icons/io5";
+import { FaPlusCircle, FaUserTie } from "react-icons/fa";
 import Navbar from "../Navbar";
 
 const Employee = () => {
@@ -12,7 +13,7 @@ const Employee = () => {
   const [loading, setLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [showForm, setShowForm] = useState(false); // State to toggle form visibility
+  const [showForm, setShowForm] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -40,38 +41,63 @@ const Employee = () => {
   };
 
   const handleCardClick = () => {
-    setShowForm(true); 
+    setShowForm(true);
   };
 
   const handleBackClick = () => {
-    setShowForm(false); 
+    setShowForm(false);
   };
 
   return (
     <div className="min-h-screen bg-gray-50 font-sans">
       <Navbar />
       <main className="pt-20">
-        {/* Card that triggers the form */}
         {!showForm && (
-          <div
-            onClick={handleCardClick}
-            className="cursor-pointer bg-blue-500 text-white p-6 rounded-lg shadow-lg max-w-md mx-auto transform transition-transform hover:scale-105"
-          >
-            <motion.h2
-              className="text-2xl font-bold text-center text-white"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5 }}
-            >
-              Add Company Paper
-            </motion.h2>
-            <p className="text-center mt-4 text-white text-lg">
-              Click to add paper details for your company.
-            </p>
+          <div className="container mx-auto px-4">
+            <h1 className="text-4xl font-bold text-center text-blue-600 mb-8">
+              Employee Admin Dashboard
+            </h1>
+            {/* Admin Dashboard */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {/* Example Employee Card */}
+              <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300">
+                <div className="flex items-center">
+                  <FaUserTie className="text-blue-600 text-4xl mr-4" />
+                  <div>
+                    <h2 className="text-xl font-bold">John Doe</h2>
+                    <p className="text-gray-600">Software Engineer</p>
+                  </div>
+                </div>
+                <div className="mt-4">
+                  <p className="text-gray-600">
+                    <span className="font-semibold">Company:</span> Google
+                  </p>
+                  <p className="text-gray-600">
+                    <span className="font-semibold">Year:</span> 2023
+                  </p>
+                </div>
+              </div>
+
+              {/* Add Paper Card */}
+              <div
+                onClick={handleCardClick}
+                className="cursor-pointer bg-blue-500 text-white p-6 rounded-lg shadow-lg transform transition-transform hover:scale-105"
+              >
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <FaPlusCircle className="text-4xl mx-auto mb-4" />
+                  <h2 className="text-2xl font-bold text-center">Add Paper</h2>
+                  <p className="text-center mt-2">Click to add paper details for a company.</p>
+                </motion.div>
+              </div>
+            </div>
           </div>
         )}
 
-        {/* Show form when clicked */}
+        {/* Add Paper Form */}
         {showForm && (
           <div className="container mx-auto px-4 py-8">
             <motion.div
@@ -80,7 +106,6 @@ const Employee = () => {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5 }}
             >
-              {/* Back button with arrow */}
               <div className="flex items-center mb-6">
                 <button
                   onClick={handleBackClick}
@@ -88,7 +113,9 @@ const Employee = () => {
                 >
                   <IoArrowBack size={24} />
                 </button>
-                <h2 className="text-2xl font-semibold text-center ml-4">Add Company Paper</h2>
+                <h2 className="text-2xl font-semibold text-center ml-4">
+                  Add Company Paper
+                </h2>
               </div>
 
               {successMessage && (
@@ -104,7 +131,9 @@ const Employee = () => {
 
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
-                  <label htmlFor="company" className="block text-gray-700">Company</label>
+                  <label htmlFor="company" className="block text-gray-700">
+                    Company
+                  </label>
                   <input
                     type="text"
                     id="company"
@@ -116,7 +145,9 @@ const Employee = () => {
                   />
                 </div>
                 <div>
-                  <label htmlFor="year" className="block text-gray-700">Year</label>
+                  <label htmlFor="year" className="block text-gray-700">
+                    Year
+                  </label>
                   <input
                     type="number"
                     id="year"
@@ -128,7 +159,9 @@ const Employee = () => {
                   />
                 </div>
                 <div>
-                  <label htmlFor="link" className="block text-gray-700">Paper Link</label>
+                  <label htmlFor="link" className="block text-gray-700">
+                    Paper Link
+                  </label>
                   <input
                     type="url"
                     id="link"
@@ -140,7 +173,9 @@ const Employee = () => {
                   />
                 </div>
                 <div>
-                  <label htmlFor="logo" className="block text-gray-700">Company Logo URL</label>
+                  <label htmlFor="logo" className="block text-gray-700">
+                    Company Logo URL
+                  </label>
                   <input
                     type="url"
                     id="logo"
