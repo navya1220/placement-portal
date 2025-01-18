@@ -13,7 +13,7 @@ const Cmp = () => {
   useEffect(() => {
     const fetchCompanies = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/api/company");
+        const response = await axios.get("https://placement-portal-backend-e74c.onrender.com/api/company");
         setCompanies(response.data);
         setFilteredCompanies(response.data);
       } catch (error) {
