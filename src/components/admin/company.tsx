@@ -28,7 +28,7 @@ const Company = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:3000/api/company", formData);
+      const response = await axios.post("https://placement-portal-backend-e74c.onrender.com/api/company", formData);
       setResponseMessage(response.data.message);
       setErrorMessage("");
       setFormData({
