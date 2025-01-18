@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { LogOut, ArrowLeft } from "lucide-react";
-import { motion } from "framer-motion";
+import { LogOut, ArrowLeft, Mail, Lock, User, Hash } from 'lucide-react';
+import { motion, AnimatePresence } from "framer-motion";
 import App from "./App";
 import EmployeeApp from "./components/employee/employee";
 import Alumini from "./components/alumini/alumini";
 import axios from "axios";
 import RoleSelection from "./rolepage";
-import Admin from "./components/admin/admin";
+import Adminpanel from "./components/admin/adminpanel";
 
 // Types
 export type UserRole = "employee" | "student" | "alumini" | "admin";
@@ -24,6 +24,13 @@ export interface AuthState {
   view: "roles" | "login" | "signup";
   selectedRole: UserRole | null;
 }
+
+const roleLabels: Record<UserRole, string> = {
+  employee: 'Employee',
+  student: 'Student',
+  alumini: 'Alumni',
+  admin: 'Admin'
+};
 
 interface AuthFormProps {
   role: UserRole;
@@ -111,111 +118,170 @@ const AuthForm: React.FC<AuthFormProps> = ({
 
   return (
     <motion.div
-      className="max-w-md w-full mx-auto bg-white p-8 rounded-lg shadow-lg"
-      initial={{ opacity: 0, scale: 0.9 }}
-      animate={{ opacity: 1, scale: 1 }}
+      className="w-full max-w-md mx-auto bg-white p-8 rounded-lg shadow-lg"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.5 }}
     >
       <button
         onClick={onBack}
-        className="mb-6 flex items-center text-gray-600 hover:text-gray-900"
+        className="mb-6 flex items-center text-gray-600 hover:text-gray-900 transition-colors duration-200"
       >
         <ArrowLeft className="h-4 w-4 mr-2" />
         Back to roles
       </button>
 
       <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold">
-            {isLogin ? "Welcome Back" : "Create Account"}
+        <motion.div
+          className="text-center mb-8"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2, duration: 0.5 }}
+        >
+          <h1 className="text-3xl font-bold mb-2 text-purple-700">
+            Vignan's Institute of Engineering for Women
+          </h1>
+          <h2 className="text-2xl font-semibold text-gray-800">
+            {isLogin ? "Login" : "Sign Up"}
           </h2>
-          <p className="text-gray-600 mt-2">
-            {isLogin ? "Sign in to your account" : `Sign up as a ${role}`}
+          <p className="text-gray-600 mt-2 text-lg">
+            {`${roleLabels[role]}`}
           </p>
-        </div>
+        </motion.div>
 
-        {!isLogin && (
-          <div>
+        <AnimatePresence mode="wait">
+          {!isLogin && (
+            <motion.div
+              key="name"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 20 }}
+              transition={{ duration: 0.3 }}
+            >
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Full Name
+              </label>
+              <div className="relative">
+                <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
+                <input
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all duration-200"
+                  placeholder="John Doe"
+                />
+              </div>
+            </motion.div>
+          )}
+
+          <motion.div
+            key="email"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.3, delay: 0.1 }}
+          >
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Full Name
+              Email Address
             </label>
-            <input
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="w-full px-4 py-2 rounded-lg border focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-              placeholder="John Doe"
-            />
-          </div>
+            <div className="relative">
+              <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all duration-200"
+                placeholder="you@example.com"
+              />
+            </div>
+          </motion.div>
+
+          {(role === "employee" || role === "admin") && (
+            <motion.div
+              key="password"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.3, delay: 0.2 }}
+            >
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Password
+              </label>
+              <div className="relative">
+                <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
+                <input
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all duration-200"
+                  placeholder="••••••••"
+                />
+              </div>
+            </motion.div>
+          )}
+
+          {(role === "student" || role === "alumini") && (
+            <motion.div
+              key="rollNo"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.3, delay: 0.2 }}
+            >
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Roll Number
+              </label>
+              <div className="relative">
+                <Hash className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
+                <input
+                  type="text"
+                  value={rollNo}
+                  onChange={(e) => setRollNo(e.target.value)}
+                  className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all duration-200"
+                  placeholder="Enter your roll number"
+                />
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {error && (
+          <motion.p
+            className="text-red-500 text-sm"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            {error}
+          </motion.p>
         )}
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Email Address
-          </label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full px-4 py-2 rounded-lg border focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            placeholder="you@example.com"
-          />
-        </div>
-
-        {(role === "employee" || role === "admin") && (
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Password
-            </label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-2 rounded-lg border focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-              placeholder="••••••••"
-            />
-          </div>
-        )}
-
-        {(role === "student" || role === "alumini") && (
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Roll Number
-            </label>
-            <input
-              type="text"
-              value={rollNo}
-              onChange={(e) => setRollNo(e.target.value)}
-              className="w-full px-4 py-2 rounded-lg border focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-              placeholder="Enter your roll number"
-            />
-          </div>
-        )}
-
-        {error && <p className="text-red-500 text-sm">{error}</p>}
-
-        <button
+        <motion.button
           type="submit"
-          className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 focus:ring-4 focus:ring-blue-200 transition-colors"
+          className="w-full bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700 focus:ring-4 focus:ring-purple-300 transition-all duration-200"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
         >
           {isLogin ? "Sign In" : "Create Account"}
-        </button>
+        </motion.button>
 
-        <p className="text-center text-sm text-gray-600">
+        <motion.p
+          className="text-center text-sm text-gray-600"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.3, duration: 0.5 }}
+        >
           {isLogin ? "Don't have an account?" : "Already have an account?"}{" "}
           <button
             type="button"
             onClick={onToggleMode}
-            className="text-blue-600 hover:text-blue-800 font-medium"
+            className="text-purple-600 hover:text-purple-800 font-medium transition-colors duration-200"
           >
             {isLogin ? "Sign up" : "Sign in"}
           </button>
-        </p>
+        </motion.p>
       </form>
     </motion.div>
   );
 };
-
 
 // Main App Component
 function Creditinal() {
@@ -270,34 +336,52 @@ function Creditinal() {
       return <EmployeeApp />;
     } else if (user.role === "admin") {
       console.log("Rendering Admin component...");
-      return <Admin />;
+      return <Adminpanel />;
     } else {
       console.error("Unexpected role:", user.role);
     }
   }
-  
 
   return (
     <motion.div
-      className="min-h-screen flex items-center justify-center bg-gray-100"
+      className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-100 to-indigo-200"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
-      {authState.view === "roles" && (
-        <RoleSelection onRoleSelect={handleRoleSelect} />
-      )}
-      {(authState.view === "login" || authState.view === "signup") && (
-        <AuthForm
-          role={authState.selectedRole!}
-          isLogin={authState.view === "login"}
-          onBack={handleBack}
-          onToggleMode={handleToggleMode}
-          onLoginSuccess={handleLoginSuccess}
-        />
-      )}
+      <AnimatePresence mode="wait">
+        {authState.view === "roles" && (
+          <motion.div
+            key="roles"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.9 }}
+            transition={{ duration: 0.3 }}
+          >
+            <RoleSelection onRoleSelect={handleRoleSelect} />
+          </motion.div>
+        )}
+        {(authState.view === "login" || authState.view === "signup") && (
+          <motion.div
+            key="auth-form"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.9 }}
+            transition={{ duration: 0.3 }}
+          >
+            <AuthForm
+              role={authState.selectedRole!}
+              isLogin={authState.view === "login"}
+              onBack={handleBack}
+              onToggleMode={handleToggleMode}
+              onLoginSuccess={handleLoginSuccess}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 }
 
 export default Creditinal;
+

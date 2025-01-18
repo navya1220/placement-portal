@@ -16,6 +16,9 @@ import About from "./about.tsx";
 import RoleSelectionPage from "./rolepage.tsx";
 import Creditinal from "./creditinals.tsx";
 import Employee from "./components/employee/employee.tsx"; 
+import AdminPanel from "./components/admin/adminpanel.tsx";
+import AddJob from "./components/admin/admin.tsx";
+import AddCompany from "./components/admin/company.tsx";
 import "./index.css";
 
 const AppRouter = () => {
@@ -23,14 +26,15 @@ const AppRouter = () => {
 
   const handleRoleSelect = (role) => {
     console.log("Selected role:", role);
-    navigate("/roles", { state: { selectedRole: role } });
+    navigate("/login", { state: { selectedRole: role } });
   };
 
   return (
     <Routes>
       <Route path="/" element={<App />} />
-      <Route path="/login" element={<Creditinal />} />
       <Route path="/roles" element={<RoleSelectionPage onRoleSelect={handleRoleSelect} />} />
+      <Route path="/login" element={<Creditinal />} />
+    
       <Route path="/about" element={<About />} />
       <Route path="/companies" element={<Cmp />} />
       <Route path="/resume-screening" element={<Rats />} />
@@ -42,6 +46,9 @@ const AppRouter = () => {
       <Route path="/dsa-practice" element={<Dsa />} />
       <Route path="/prediction" element={<Prediction />} />
       <Route path="/employee" element={<Employee />} /> 
+      <Route path="/admin" element={<AdminPanel />} />
+        <Route path="/admin/add-job" element={<AddJob />} />
+        <Route path="/admin/add-company" element={<AddCompany />} />
     </Routes>
   );
 };
