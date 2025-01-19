@@ -7,7 +7,7 @@ const RoleSelectionPage: React.FC<{ onRoleSelect: (role: UserRole) => void }> = 
 
   const handleRoleSelect = (role: UserRole) => {
     onRoleSelect(role);
-    navigate("/login"); 
+    navigate("/signup"); 
   };
 
   return (
