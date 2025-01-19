@@ -76,7 +76,7 @@ const Chatbot = () => {
           Placement AI Chatbot
         </header>
         <button
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/app")}
           style={{
             margin: "10px",
             padding: "10px",

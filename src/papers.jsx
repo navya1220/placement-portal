@@ -26,7 +26,7 @@ const CompanyPapers = () => {
   }, []);
 
   const handleNavigate = () => {
-    navigate("/");
+    navigate("/app");
   };
 
   return (
