@@ -18,6 +18,7 @@ import Employee from "./components/employee/employee.tsx";
 import AdminPanel from "./components/admin/adminpanel.tsx";
 import AddJob from "./components/admin/admin.tsx";
 import AddCompany from "./components/admin/company.tsx";
+import Alumni from "./components/alumini/alumini.tsx";
 import Signup from "./sign.tsx";
 import Login from "./login.tsx";
 import "./index.css";
@@ -48,6 +49,7 @@ const AppRouter = () => {
       <Route path="/dsa-practice" element={<Dsa />} />
       <Route path="/prediction" element={<Prediction />} />
       <Route path="/employee" element={<Employee />} /> 
+      <Route path="/alumini" element={<Alumni />} />
       <Route path="/admin" element={<AdminPanel />} />
         <Route path="/admin/add-job" element={<AddJob />} />
         <Route path="/admin/add-company" element={<AddCompany />} />
