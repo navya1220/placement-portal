@@ -106,13 +106,11 @@ const Login: React.FC = () => {
                 value={rollNo}
                 onChange={(e) => setRollNo(e.target.value)}
                 className="w-full pl-4 py-2 rounded-lg border border-gray-300"
-                placeholder="Roll Number"
+                placeholder="Enter your Roll Number"
                 required
               />
             </div>
-          ) : null}
-
-          {role !== "student" && role !== "alumini" && (
+          ) : (
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Password
@@ -133,23 +131,29 @@ const Login: React.FC = () => {
 
           {error && <p className="text-red-500 text-sm">{error}</p>}
 
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Select Role
+            </label>
+            <select
+              value={role}
+              onChange={(e) => setRole(e.target.value as UserRole)}
+              className="w-full pl-3 pr-4 py-2 rounded-lg border border-gray-300"
+            >
+              <option value="student">Student</option>
+              <option value="alumini">Alumini</option>
+              <option value="employee">Employee</option>
+              <option value="admin">Admin</option>
+            </select>
+          </div>
+
           <button
             type="submit"
             className="w-full bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700"
           >
-            Sign In
+            Login
           </button>
         </form>
-
-        <p className="text-sm text-center mt-4">
-          Don't have an account?{" "}
-          <button
-            className="text-purple-500 underline"
-            onClick={() => navigate("/signup")}
-          >
-            Sign Up
-          </button>
-        </p>
       </motion.div>
     </div>
   );
