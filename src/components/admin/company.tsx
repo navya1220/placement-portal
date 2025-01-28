@@ -28,7 +28,10 @@ const Company = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("https://placement-portal-backend-e74c.onrender.com/api/company", formData);
+      const response = await axios.post(
+        "https://placement-portal-backend-e74c.onrender.com/api/company",
+        formData
+      );
       setResponseMessage(response.data.message);
       setErrorMessage("");
       setFormData({
@@ -42,7 +45,9 @@ const Company = () => {
       setShowForm(false);
     } catch (error) {
       setResponseMessage("");
-      setErrorMessage(error.response?.data?.error || "Failed to add company.");
+      setErrorMessage(
+        error.response?.data?.error || "Failed to add company."
+      );
     }
   };
 
@@ -51,12 +56,18 @@ const Company = () => {
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center vh-100 bg-light">
+    <div className="d-flex justify-content-center align-items-center vh-80 bg-light">
       <AnimatePresence>
         {showForm && (
           <motion.div
             className="card shadow rounded p-4"
-            style={{ width: "90%", maxWidth: "400px", backgroundColor: "#fff" }}
+            style={{
+              width: "95%",
+              maxWidth: "600px",
+              height: "auto", 
+              backgroundColor: "#fff",
+              minHeight: "00px", 
+            }}
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.8 }}

@@ -1,0 +1,53 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+:root {
+  --primary: 37 99 235;
+  --primary-foreground: 255 255 255;
+  --background: 255 255 255;
+  --foreground: 15 23 42;
+  --muted: 241 245 249;
+  --muted-foreground: 100 116 139;
+  --popover: 255 255 255;
+  --popover-foreground: 15 23 42;
+  --card: 255 255 255;
+  --card-foreground: 15 23 42;
+  --border: 226 232 240;
+  --input: 226 232 240;
+  --ring: 37 99 235;
+}
+
+.dark {
+  --primary: 59 130 246;
+  --primary-foreground: 255 255 255;
+  --background: 15 23 42;
+  --foreground: 226 232 240;
+  --muted: 30 41 59;
+  --muted-foreground: 148 163 184;
+  --popover: 30 41 59;
+  --popover-foreground: 226 232 240;
+  --card: 30 41 59;
+  --card-foreground: 226 232 240;
+  --border: 51 65 85;
+  --input: 51 65 85;
+  --ring: 59 130 246;
+}
+
+@layer base {
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-blue-600 text-white hover:bg-blue-700 inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2;
+  }
+  .btn-secondary {
+    @apply bg-blue-100 text-blue-800 hover:bg-blue-200 inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2;
+  }
+  .input {
+    @apply flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+}

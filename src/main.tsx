@@ -2,7 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
 
-import App from "./App"; 
+import App from "./App";
 import Cmp from "./companies.jsx";
 import Rats from "./resume_ats.jsx";
 import Mock from "./mock.tsx";
@@ -14,13 +14,15 @@ import Dsa from "./Dsa.tsx";
 import Prediction from "./prediction.tsx";
 import About from "./about.tsx";
 import RoleSelectionPage from "./rolepage.tsx";
-import Employee from "./components/employee/employee.tsx"; 
+import Employee from "./components/employee/employee.tsx";
 import AdminPanel from "./components/admin/adminpanel.tsx";
 import AddJob from "./components/admin/admin.tsx";
 import AddCompany from "./components/admin/company.tsx";
 import Alumni from "./components/alumini/alumini.tsx";
 import Signup from "./sign.tsx";
 import Login from "./login.tsx";
+import Dashboard from "./components/admin/Dashboard.tsx";
+
 import "./index.css";
 
 const AppRouter = () => {
@@ -33,7 +35,7 @@ const AppRouter = () => {
 
   return (
     <Routes>
-      
+      {/* Public Routes */}
       <Route path="/" element={<RoleSelectionPage onRoleSelect={handleRoleSelect} />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/login" element={<Login />} />
@@ -48,11 +50,15 @@ const AppRouter = () => {
       <Route path="/future-trends" element={<Ft />} />
       <Route path="/dsa-practice" element={<Dsa />} />
       <Route path="/prediction" element={<Prediction />} />
-      <Route path="/employee" element={<Employee />} /> 
+      <Route path="/employee" element={<Employee />} />
       <Route path="/alumini" element={<Alumni />} />
-      <Route path="/admin" element={<AdminPanel />} />
-        <Route path="/admin/add-job" element={<AddJob />} />
-        <Route path="/admin/add-company" element={<AddCompany />} />
+
+      {/* Admin Routes */}
+      <Route path="/admin" element={<AdminPanel />}>
+        <Route path="dashboard" element={<Dashboard />} />
+        <Route path="add-job" element={<AddJob />} />
+        <Route path="add-company" element={<AddCompany />} />
+      </Route>
     </Routes>
   );
 };
