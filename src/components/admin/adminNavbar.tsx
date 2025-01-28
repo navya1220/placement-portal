@@ -23,6 +23,11 @@ const AdminNavbar: React.FC<AdminNavbarProps> = ({ onMenuClick, isSidebarOpen })
     setIsMobileMenuOpen(false)
   }
 
+  const handleMobileMenuClose = (navigateTo: string) => {
+    setIsMobileMenuOpen(false) // Close the menu
+    navigate(navigateTo) // Navigate to the desired page
+  }
+
   return (
     <>
       <nav className="bg-blue-600 text-white shadow-md px-4 py-3 fixed w-full top-0 z-40">
@@ -85,10 +90,17 @@ const AdminNavbar: React.FC<AdminNavbarProps> = ({ onMenuClick, isSidebarOpen })
             className="md:hidden fixed inset-0 z-50 bg-blue-600 pt-16"
           >
             <div className="flex flex-col items-center space-y-4 p-4">
+              <button
+                className="absolute top-4 right-4 text-white"
+                onClick={() => setIsMobileMenuOpen(false)}
+                aria-label="Close menu"
+              >
+                <X className="h-6 w-6" />
+              </button>
               <Link
                 to="/about"
                 className="text-white hover:text-blue-200 transition-colors text-lg"
-                onClick={() => setIsMobileMenuOpen(false)}
+                onClick={() => handleMobileMenuClose("/about")}
               >
                 About Us
               </Link>
@@ -113,4 +125,3 @@ const AdminNavbar: React.FC<AdminNavbarProps> = ({ onMenuClick, isSidebarOpen })
 }
 
 export default AdminNavbar
-
