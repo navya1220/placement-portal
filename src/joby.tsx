@@ -14,6 +14,7 @@ export interface Job {
   technologies: string[];
   experience: string;
   postedDate: string;
+  companyUrl: string;
   companyLogo: string;
 }
 
@@ -237,21 +238,23 @@ export const JobDetails: React.FC<{ job: Job; onClose: () => void }> = ({ job, o
         </div>
 
         <div className="mt-8 flex flex-wrap gap-4 justify-center">
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="w-full sm:w-auto bg-indigo-600 text-white px-8 py-3 rounded-lg hover:bg-indigo-700 transition-colors"
-          >
-            Apply Now
-          </motion.button>
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="w-full sm:w-auto border border-indigo-600 text-indigo-600 px-8 py-3 rounded-lg hover:bg-indigo-50 transition-colors"
-          >
-            Save Job
-          </motion.button>
-        </div>
+  <motion.button
+    whileHover={{ scale: 1.05 }}
+    whileTap={{ scale: 0.95 }}
+    className="w-full sm:w-auto bg-indigo-600 text-white px-8 py-3 rounded-lg hover:bg-indigo-700 transition-colors"
+    onClick={() => window.open(job.companyUrl, '_blank')}
+  >
+    Apply Now
+  </motion.button>
+  <motion.button
+    whileHover={{ scale: 1.05 }}
+    whileTap={{ scale: 0.95 }}
+    className="w-full sm:w-auto border border-indigo-600 text-indigo-600 px-8 py-3 rounded-lg hover:bg-indigo-50 transition-colors"
+  >
+    Save Job
+  </motion.button>
+</div>
+
       </div>
     </motion.div>
   </div>
